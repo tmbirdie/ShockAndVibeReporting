@@ -1,0 +1,17 @@
+md-input, md-textarea{
+    width: 98%;
+
+}
+
+.botBorder {
+  border-bottom: 1px solid grey;
+}
+
+.toolbarStyles {
+  background-color: cadetblue;
+  color:white; 
+  width: 100%;
+  border-radius: 3px 3px 0 0;
+  padding-top: 15px;
+  text-align: center;
+}

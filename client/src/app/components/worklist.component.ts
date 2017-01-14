@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CompanyService } from '../services/company.service';
 import { Company } from '../models/company.model';
+import { FormControl } from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { MdCard, MdToolbar, MdIconModule, MdButtonModule, MdListModule, MdInputModule, MdCheckboxModule } from '@angular/material';
 
@@ -12,6 +13,8 @@ import { MdCard, MdToolbar, MdIconModule, MdButtonModule, MdListModule, MdInputM
 })
 
 export class WorklistComponent {
+
+  title: string = "Company List";
     
     companies: Company[];
     cName: string;
@@ -21,6 +24,13 @@ export class WorklistComponent {
     cZip: string;
     cPhone: string;
     cEmail: string;
+    stateControl = new FormControl('CA-0');
+
+    states = [
+    {value: 'CA', viewValue: 'CA'},
+    {value: 'CO', viewValue: 'CO'},
+    {value: 'TX', viewValue: 'TX'}
+  ];
 
     constructor(private companyService: CompanyService){
     this.companyService.getCompanies()

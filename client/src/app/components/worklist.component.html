@@ -1,32 +1,34 @@
 
-<md-card>
-    <md-toolbar class="toolbarStyles botBorder">
-      <md-card-title class="toolbarTitle">Company List</md-card-title>
+<md-card style="padding:0">
+    <md-toolbar color="primary" style="text-align:center">
+      <md-card-title style="text-align:center"><h3>{{title}}</h3></md-card-title>
     </md-toolbar>
     <md-card-content style="padding:20px">
         
-        <md-input [(ngModel)]="cName" name="cName" placeholder="Company Name"></md-input><br>
-        <md-input type="text" [(ngModel)]="cStreet" name="cStreet" placeholder="Company Street"></md-input><br>
-        <md-input type="text" [(ngModel)]="cCity" name="cCity" placeholder="Company City"></md-input>
-        <md-input type="text" [(ngModel)]="cState" name="cState" placeholder="Company State"></md-input>
-        <md-input type="text" [(ngModel)]="cZip" name="cZip" placeholder="Company Zip"></md-input><br>
-        <md-input type="text" [(ngModel)]="cPhone" name="cPhone"  placeholder="Company Phone"></md-input>
-        <md-input type="text" [(ngModel)]="cEmail" name="cEmail"  placeholder="Company Email"></md-input><br>
-        <button md-button type="submit" (click)="addCompany($event)">Add Company</button><br>
+        <md-input [(ngModel)]="cName" name="cName" placeholder="Name"></md-input><br>
+        <md-input [(ngModel)]="cStreet" name="cStreet" placeholder="Street"></md-input><br>
+        <md-input style="width:59%" [(ngModel)]="cCity" name="cCity" placeholder="City"></md-input>
+        <md-select [(ngModel)]="cState" name="cState" placeholder="State">
+            <md-option *ngFor="let state of states" [value]="state.value">{{ state.viewValue }}</md-option>
+        </md-select>
+        <md-input style="width:21%" [(ngModel)]="cZip" name="cZip" placeholder="Zip"></md-input><br>
+        <md-input [(ngModel)]="cPhone" name="cPhone"  placeholder="Phone"></md-input>
+        <md-input [(ngModel)]="cEmail" name="cEmail"  placeholder="Email"></md-input><br>
+        <button md-raised-button color="accent" type="submit" (click)="addCompany($event)">Add Company</button><br>
     </md-card-content>
 </md-card>
 <hr>
 
-        <md-card style="width:50%;float:left" *ngFor="let company of companies">
-        <md-card-content style="height:120px;float:left">
-            {{company.CompanyName}}<br>
-            {{company.CompanyStreet}}<br>
-            {{company.CompanyCity}}, 
-            {{company.CompanyState}} 
-            {{company.CompanyZip}}<br>
-            {{company.CompanyPhone}}<br>
-            {{company.CompanyEmail}}<br><br>
-        </md-card-content>
-        </md-card>
+<md-card style="width:50%;float:left;" *ngFor="let company of companies">
+<md-card-content style="height:120px;float:left">
+    {{company.CompanyName}}<br>
+    {{company.CompanyStreet}}<br>
+    {{company.CompanyCity}}, 
+    {{company.CompanyState}} 
+    {{company.CompanyZip}}<br>
+    {{company.CompanyPhone}}<br>
+    {{company.CompanyEmail}}<br><br>
+</md-card-content>
+</md-card>
 
-        <br><br>
+<br><br>
