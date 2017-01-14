@@ -24,7 +24,6 @@ export class WorklistComponent {
     cZip: string;
     cPhone: string;
     cEmail: string;
-    stateControl = new FormControl('CA-0');
 
     states = [
     {value: 'CA', viewValue: 'CA'},
@@ -63,6 +62,18 @@ export class WorklistComponent {
     })
   }
 
-  
+  deleteCompany(id){
+    var companies = this.companies;
+
+    this.companyService.deleteCompany(id).subscribe(data => {
+      if(data.n == 1){
+        for(var i = 0; i < companies.length; i++){
+          if(companies[i]._id == id){
+            companies.splice(i, 1);
+          }
+        }
+      }
+    });
+  }
 
 }

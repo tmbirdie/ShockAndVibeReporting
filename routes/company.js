@@ -14,6 +14,7 @@ router.get('/company', function(req, res, next){
     });
 });
 
+
 //Get Single company
 router.get('/company/:id', function(req, res, next){
     db.company.findOne({_id: mongojs.ObjectId(req.params.id)}, function(err, company){
@@ -52,6 +53,9 @@ router.delete('/company/:id', function(req, res, next){
        res.json(company);
     });
 });
+
+
+
 
 //Update company
 router.put('/company/:id', function(req, res, next){
