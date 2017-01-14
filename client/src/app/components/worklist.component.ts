@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { CompanyService } from '../services/company.service';
 import { Company } from '../models/company.model';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { MdCard, MdToolbar, MdIconModule, MdButtonModule, MdListModule, MdInputModule, MdCheckboxModule } from '@angular/material';
+
 
 @Component({
     selector: 'my-worklist',
