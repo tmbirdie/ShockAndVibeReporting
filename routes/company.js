@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mongojs = require('mongojs');
-var db = mongojs('mongodb://', ['company']);
+var db = mongojs('mongodb://teri:teri@ds163738.mlab.com:63738/shockandvibedb', ['company']);
 
 
 //Get All companies
