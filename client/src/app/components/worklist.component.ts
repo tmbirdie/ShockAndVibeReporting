@@ -17,6 +17,7 @@ export class WorklistComponent {
   title: string = "Company List";
     
     companies: Company[];
+    id: string;
     cName: string;
     cStreet: string;
     cCity: string;
@@ -65,7 +66,13 @@ export class WorklistComponent {
   deleteCompany(id){
     var companies = this.companies;
 
-    this.companyService.deleteCompany(id).subscribe(data => {
+    var isConfirm = confirm('Are you sure you want to delete');
+
+    if (!isConfirm){
+      return false;
+    }
+    else {
+      this.companyService.deleteCompany(id).subscribe(data => {
       if(data.n == 1){
         for(var i = 0; i < companies.length; i++){
           if(companies[i]._id == id){
@@ -74,6 +81,20 @@ export class WorklistComponent {
         }
       }
     });
+    }
+  }
+
+
+updateCompany(company){
+    var _company = {
+      _id: company._id,
+      CompanyName: company.CompanyName,
+      CompanyEmail: 'company@CompanyEmail.com'
+    };
+
+    this.companyService.updateCompany(_company).subscribe(data => {
+      company.CompanyEmail = 'company@CompanyEmail.com';
+   })
   }
 
 }

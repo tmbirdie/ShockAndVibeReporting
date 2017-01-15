@@ -27,6 +27,13 @@ basePath: string = "http://localhost:3000/api/";
         return this.http.delete(this.basePath + "company/"+id)
         .map(res => res.json());
     }
+
+    updateCompany(company){
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.put(this.basePath + 'company/'+company._id, JSON.stringify(company), {headers: headers})
+            .map(res => res.json());
+    }
 }
 
 

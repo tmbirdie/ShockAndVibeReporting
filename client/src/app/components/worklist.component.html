@@ -15,14 +15,15 @@
         <md-input [(ngModel)]="cPhone" name="cPhone"  placeholder="Phone"></md-input>
         <md-input [(ngModel)]="cEmail" name="cEmail"  placeholder="Email"></md-input><br>
         <button md-raised-button color="accent" type="submit" (click)="addCompany($event)">Add Company</button>
+        <!--<button md-raised-button color="primary" (click)="deleteCompany(company._id)">Delete Company</button>-->
         
     </md-card-content>
 </md-card>
 <hr>
 
 <md-card style="width:50%;float:left;" *ngFor="let company of companies">
-    <md-card-content style="height:120px;float:left">
-    <input type="button" (click)="deleteCompany(company._id)" value="Delete" class="btn btn-danger"><br>
+    <md-card-content style="height:150px;float:left">
+<button md-raised-button color="primary" (click)="deleteCompany(company._id)">Delete Company</button> <br><br>   
         {{company.CompanyName}}<br>
         {{company.CompanyStreet}}<br>
         {{company.CompanyCity}}, 
