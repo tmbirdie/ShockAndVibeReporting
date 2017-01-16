@@ -5,21 +5,34 @@
     </md-toolbar>
     <md-card-content style="padding:20px">
         
-        <md-input [(ngModel)]="cName" name="cName" placeholder="Name"></md-input><br>
-        <md-input [(ngModel)]="cStreet" name="cStreet" placeholder="Street"></md-input><br>
-        <md-input style="width:59%" [(ngModel)]="cCity" name="cCity" placeholder="City"></md-input>
-        <md-select [(ngModel)]="cState" name="cState" placeholder="State">
-            <md-option *ngFor="let state of states" [value]="state.value">{{ state.viewValue }}</md-option>
+        <md-input-container >
+            <input md-input [(ngModel)]="cName" ngControl="cName" name="cName" placeholder="Name" required>
+            <md-hint>This field is required</md-hint>
+        </md-input-container>
+        <md-input-container >
+            <input md-input [(ngModel)]="cStreet" name="cStreet" placeholder="Street">
+        </md-input-container>
+        <md-input-container style="width:60%">
+            <input md-input [(ngModel)]="cCity" name="cCity" placeholder="City">
+        </md-input-container>
+         <md-select style="width:19%"[(ngModel)]="cState" name="cState" placeholder="State">
+                <md-option *ngFor="let state of states" [value]="state.value">{{ state.viewValue }}</md-option>
         </md-select>
-        <md-input style="width:21%" [(ngModel)]="cZip" name="cZip" placeholder="Zip"></md-input><br>
-        <md-input [(ngModel)]="cPhone" name="cPhone"  placeholder="Phone"></md-input>
-        <md-input [(ngModel)]="cEmail" name="cEmail"  placeholder="Email"></md-input><br>
+        <md-input-container style="width:20%">
+            <input md-input [(ngModel)]="cZip" name="cZip" placeholder="Zip">
+        </md-input-container>
+        <md-input-container >
+            <input md-input [(ngModel)]="cPhone" name="cPhone"  placeholder="Phone">
+        </md-input-container>
+        <md-input-container >
+            <input md-input [(ngModel)]="cEmail" name="cEmail"  placeholder="Email">
+        </md-input-container>
         <button md-raised-button color="accent" type="submit" (click)="addCompany($event)">Add Company</button>
-        <!--<button md-raised-button color="primary" (click)="deleteCompany(company._id)">Delete Company</button>-->
-        
     </md-card-content>
 </md-card>
 <hr>
+
+
 
 <md-card style="width:50%;float:left;" *ngFor="let company of companies">
     <md-card-content style="height:150px;float:left">
