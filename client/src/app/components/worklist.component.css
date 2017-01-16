@@ -1,7 +1,3 @@
-md-input, md-textarea{
-    width: 98%;
-
-}
 
 .botBorder {
   border-bottom: 1px solid grey;
@@ -14,4 +10,12 @@ md-input, md-textarea{
   border-radius: 3px 3px 0 0;
   padding-top: 15px;
   text-align: center;
+}
+
+md-input-container {
+  width: 100%
+}
+
+[hidden] {
+  display: none !important;
 }

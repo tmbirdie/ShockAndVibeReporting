@@ -37,8 +37,14 @@ var CompanyService = (function () {
         return this.http.post(this.basePath + 'company', JSON.stringify(newCompany), { headers: headers })
             .map(function (res) { return res.json(); });
     };
-    CompanyService.prototype.deleteSelectedCompanies = function () {
-        return this.http.delete(this.basePath + "company")
+    CompanyService.prototype.deleteCompany = function (id) {
+        return this.http.delete(this.basePath + "company/" + id)
+            .map(function (res) { return res.json(); });
+    };
+    CompanyService.prototype.updateCompany = function (company) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Headers */]();
+        headers.append('Content-Type', 'application/json');
+        return this.http.put(this.basePath + 'company/' + company._id, JSON.stringify(company), { headers: headers })
             .map(function (res) { return res.json(); });
     };
     CompanyService = __decorate([
@@ -48,7 +54,7 @@ var CompanyService = (function () {
     return CompanyService;
     var _a;
 }());
-//# sourceMappingURL=/Users/terilmathews/ShockAndVibeReporting/client/src/company.service.js.map
+//# sourceMappingURL=C:/Users/tmathews/Documents/ShockAndVibeReporting/client/src/company.service.js.map
 
 /***/ },
 
@@ -85,7 +91,7 @@ if (__WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment *
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_37" /* enableProdMode */])();
 }
 __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_4__app_app_module__["a" /* AppModule */]);
-//# sourceMappingURL=/Users/terilmathews/ShockAndVibeReporting/client/src/main.js.map
+//# sourceMappingURL=C:/Users/tmathews/Documents/ShockAndVibeReporting/client/src/main.js.map
 
 /***/ },
 
@@ -122,7 +128,7 @@ var AppComponent = (function () {
     ], AppComponent);
     return AppComponent;
 }());
-//# sourceMappingURL=/Users/terilmathews/ShockAndVibeReporting/client/src/app.component.js.map
+//# sourceMappingURL=C:/Users/tmathews/Documents/ShockAndVibeReporting/client/src/app.component.js.map
 
 /***/ },
 
@@ -132,7 +138,7 @@ var AppComponent = (function () {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(68);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(43);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(147);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_material__ = __webpack_require__(352);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_hammerjs__ = __webpack_require__(745);
@@ -182,7 +188,7 @@ var AppModule = (function () {
     ], AppModule);
     return AppModule;
 }());
-//# sourceMappingURL=/Users/terilmathews/ShockAndVibeReporting/client/src/app.module.js.map
+//# sourceMappingURL=C:/Users/tmathews/Documents/ShockAndVibeReporting/client/src/app.module.js.map
 
 /***/ },
 
@@ -192,7 +198,6 @@ var AppModule = (function () {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_company_service__ = __webpack_require__(392);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(38);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return WorklistComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -205,13 +210,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-
 var WorklistComponent = (function () {
     function WorklistComponent(companyService) {
         var _this = this;
         this.companyService = companyService;
         this.title = "Company List";
-        this.stateControl = new __WEBPACK_IMPORTED_MODULE_2__angular_forms__["d" /* FormControl */]('CA-0');
         this.states = [
             { value: 'CA', viewValue: 'CA' },
             { value: 'CO', viewValue: 'CO' },
@@ -246,17 +249,32 @@ var WorklistComponent = (function () {
             _this.cEmail = '';
         });
     };
-    WorklistComponent.prototype.deleteSelectedCompanies = function () {
-        var _this = this;
+    WorklistComponent.prototype.deleteCompany = function (id) {
         var companies = this.companies;
-        this.companyService.deleteSelectedCompanies().subscribe(function (data) {
-            if (data.n == 1) {
-                for (var i = (_this.companies.length - 1); i < -1; i--) {
-                    if (_this.companies[i].toRemove) {
-                        companies.splice(i, 1);
+        var isConfirm = confirm('Are you sure you want to delete');
+        if (!isConfirm) {
+            return false;
+        }
+        else {
+            this.companyService.deleteCompany(id).subscribe(function (data) {
+                if (data.n == 1) {
+                    for (var i = 0; i < companies.length; i++) {
+                        if (companies[i]._id == id) {
+                            companies.splice(i, 1);
+                        }
                     }
                 }
-            }
+            });
+        }
+    };
+    WorklistComponent.prototype.updateCompany = function (company) {
+        var _company = {
+            _id: company._id,
+            CompanyName: company.CompanyName,
+            CompanyEmail: 'company@CompanyEmail.com'
+        };
+        this.companyService.updateCompany(_company).subscribe(function (data) {
+            company.CompanyEmail = 'company@CompanyEmail.com';
         });
     };
     WorklistComponent = __decorate([
@@ -270,7 +288,7 @@ var WorklistComponent = (function () {
     return WorklistComponent;
     var _a;
 }());
-//# sourceMappingURL=/Users/terilmathews/ShockAndVibeReporting/client/src/worklist.component.js.map
+//# sourceMappingURL=C:/Users/tmathews/Documents/ShockAndVibeReporting/client/src/worklist.component.js.map
 
 /***/ },
 
@@ -286,7 +304,7 @@ var WorklistComponent = (function () {
 var environment = {
     production: false
 };
-//# sourceMappingURL=/Users/terilmathews/ShockAndVibeReporting/client/src/environment.js.map
+//# sourceMappingURL=C:/Users/tmathews/Documents/ShockAndVibeReporting/client/src/environment.js.map
 
 /***/ },
 
@@ -342,7 +360,7 @@ var environment = {
 
 
 
-//# sourceMappingURL=/Users/terilmathews/ShockAndVibeReporting/client/src/polyfills.js.map
+//# sourceMappingURL=C:/Users/tmathews/Documents/ShockAndVibeReporting/client/src/polyfills.js.map
 
 /***/ },
 
@@ -356,21 +374,21 @@ module.exports = ""
 /***/ 748:
 /***/ function(module, exports) {
 
-module.exports = "md-input, md-textarea{\n    width: 98%;\n\n}\n\n.botBorder {\n  border-bottom: 1px solid grey;\n}\n\n.toolbarStyles {\n  background-color: cadetblue;\n  color:white; \n  width: 100%;\n  border-radius: 3px 3px 0 0;\n  padding-top: 15px;\n  text-align: center;\n}\n"
+module.exports = "md-input, md-textarea{\r\n    width: 98%;\r\n\r\n}\r\n\r\n.botBorder {\r\n  border-bottom: 1px solid grey;\r\n}\r\n\r\n.toolbarStyles {\r\n  background-color: cadetblue;\r\n  color:white; \r\n  width: 100%;\r\n  border-radius: 3px 3px 0 0;\r\n  padding-top: 15px;\r\n  text-align: center;\r\n}\r\n"
 
 /***/ },
 
 /***/ 749:
 /***/ function(module, exports) {
 
-module.exports = "\n\n<my-worklist></my-worklist>\n\n"
+module.exports = "\r\n\r\n<my-worklist></my-worklist>\r\n\r\n"
 
 /***/ },
 
 /***/ 750:
 /***/ function(module, exports) {
 
-module.exports = "\r\n<md-card style=\"padding:0\">\r\n    <md-toolbar color=\"primary\" style=\"text-align:center\">\r\n      <md-card-title style=\"text-align:center\"><h3>{{title}}</h3></md-card-title>\r\n    </md-toolbar>\r\n    <md-card-content style=\"padding:20px\">\r\n        \r\n        <md-input [(ngModel)]=\"cName\" name=\"cName\" placeholder=\"Name\"></md-input><br>\r\n        <md-input [(ngModel)]=\"cStreet\" name=\"cStreet\" placeholder=\"Street\"></md-input><br>\r\n        <md-input style=\"width:59%\" [(ngModel)]=\"cCity\" name=\"cCity\" placeholder=\"City\"></md-input>\r\n        <md-select [(ngModel)]=\"cState\" name=\"cState\" placeholder=\"State\">\r\n            <md-option *ngFor=\"let state of states\" [value]=\"state.value\">{{ state.viewValue }}</md-option>\r\n        </md-select>\r\n        <md-input style=\"width:21%\" [(ngModel)]=\"cZip\" name=\"cZip\" placeholder=\"Zip\"></md-input><br>\r\n        <md-input [(ngModel)]=\"cPhone\" name=\"cPhone\"  placeholder=\"Phone\"></md-input>\r\n        <md-input [(ngModel)]=\"cEmail\" name=\"cEmail\"  placeholder=\"Email\"></md-input><br>\r\n        <button md-raised-button color=\"primary\" type=\"submit\" (click)=\"addCompany($event)\">Add Company</button><br>\r\n        <button md-raised-button [disabled]=\"buttonState()\" [style.color]=\"buttonState() ? 'gray' : 'red'\" \r\n            (click)=\"deleteSelectedCompanies()\">Delete Selected Companies</button><br>\r\n    </md-card-content>\r\n</md-card>\r\n<hr>\r\n\r\n<md-card style=\"width:50%;float:left;\" *ngFor=\"let company of companies\">\r\n    <md-card-content style=\"height:120px;float:left\">\r\n    <input type=\"checkbox\" class=\"checkbox\" [(ngModel)]=\"company.toRemove\"/>\r\n        {{company.CompanyName}}<br>\r\n        {{company.CompanyStreet}}<br>\r\n        {{company.CompanyCity}}, \r\n        {{company.CompanyState}} \r\n        {{company.CompanyZip}}<br>\r\n        {{company.CompanyPhone}}<br>\r\n        {{company.CompanyEmail}}<br><br>\r\n    </md-card-content>\r\n</md-card>\r\n\r\n<br><br>\r\n"
+module.exports = "\r\n<md-card style=\"padding:0\">\r\n    <md-toolbar color=\"primary\" style=\"text-align:center\">\r\n      <md-card-title style=\"text-align:center\"><h3>{{title}}</h3></md-card-title>\r\n    </md-toolbar>\r\n    <md-card-content style=\"padding:20px\">\r\n        \r\n        <md-input [(ngModel)]=\"cName\" name=\"cName\" placeholder=\"Name\"></md-input><br>\r\n        <md-input [(ngModel)]=\"cStreet\" name=\"cStreet\" placeholder=\"Street\"></md-input><br>\r\n        <md-input style=\"width:59%\" [(ngModel)]=\"cCity\" name=\"cCity\" placeholder=\"City\"></md-input>\r\n        <md-select [(ngModel)]=\"cState\" name=\"cState\" placeholder=\"State\">\r\n            <md-option *ngFor=\"let state of states\" [value]=\"state.value\">{{ state.viewValue }}</md-option>\r\n        </md-select>\r\n        <md-input style=\"width:21%\" [(ngModel)]=\"cZip\" name=\"cZip\" placeholder=\"Zip\"></md-input><br>\r\n        <md-input [(ngModel)]=\"cPhone\" name=\"cPhone\"  placeholder=\"Phone\"></md-input>\r\n        <md-input [(ngModel)]=\"cEmail\" name=\"cEmail\"  placeholder=\"Email\"></md-input><br>\r\n        <button md-raised-button color=\"accent\" type=\"submit\" (click)=\"addCompany($event)\">Add Company</button>\r\n        <!--<button md-raised-button color=\"primary\" (click)=\"deleteCompany(company._id)\">Delete Company</button>-->\r\n        \r\n    </md-card-content>\r\n</md-card>\r\n<hr>\r\n\r\n<md-card style=\"width:50%;float:left;\" *ngFor=\"let company of companies\">\r\n    <md-card-content style=\"height:150px;float:left\">\r\n<button md-raised-button color=\"primary\" (click)=\"deleteCompany(company._id)\">Delete Company</button> <br><br>   \r\n        {{company.CompanyName}}<br>\r\n        {{company.CompanyStreet}}<br>\r\n        {{company.CompanyCity}}, \r\n        {{company.CompanyState}} \r\n        {{company.CompanyZip}}<br>\r\n        {{company.CompanyPhone}}<br>\r\n        {{company.CompanyEmail}}<br><br>\r\n    </md-card-content>\r\n</md-card>\r\n\r\n<br><br>\r\n"
 
 /***/ },
 
