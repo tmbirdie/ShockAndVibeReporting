@@ -19,3 +19,7 @@ md-input-container {
 [hidden] {
   display: none !important;
 }
+
+md-hint{
+  color: red;
+}
