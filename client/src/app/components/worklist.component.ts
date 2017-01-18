@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CompanyService } from '../services/company.service';
 import { Company } from '../models/company.model';
-import { FormControl } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { MdCard, MdToolbar, MdIconModule, MdButtonModule, MdListModule, MdInputModule, MdCheckboxModule } from '@angular/material';
 
@@ -13,6 +13,13 @@ import { MdCard, MdToolbar, MdIconModule, MdButtonModule, MdListModule, MdInputM
 })
 
 export class WorklistComponent {
+
+  onSubmit({ value, valid } : { value: Company, valid: boolean }){
+    console.log(value, valid);
+  }
+
+  
+
 
   title: string = "Company List";
     
@@ -32,12 +39,22 @@ export class WorklistComponent {
     {value: 'TX', viewValue: 'TX'}
   ];
 
+  hasStateError = false;
+
+  validateState(value){
+    if (this.cState === "default")
+      this.hasStateError = true;
+    else
+      this.hasStateError = false;
+  }
+
     constructor(private companyService: CompanyService){
     this.companyService.getCompanies()
       .subscribe(companies => {
         this.companies = companies;
       });
   }
+
 
   addCompany(event){
   event.preventDefault();
