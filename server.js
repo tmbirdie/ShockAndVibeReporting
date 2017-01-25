@@ -6,6 +6,7 @@ var index = require('./routes/index');
 var jobs = require('./routes/jobs');
 var techs = require('./routes/techs');
 var company = require('./routes/company');
+var quotes = require('./routes/quotes');
 
 var port = 3000;
 
@@ -27,6 +28,7 @@ app.use('/', index);
 app.use('/api', jobs);
 app.use('/api', techs);
 app.use('/api', company);
+app.use('/api', quotes);
 
 app.listen(port, function(){
     console.log('Server started on port ' + port);

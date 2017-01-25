@@ -1,0 +1,8 @@
+.toolbar-filler {
+    flex: 1 1 auto;
+  }
+
+.md-menu-content {
+    background: rosybrown !important;
+    padding: 0;
+}

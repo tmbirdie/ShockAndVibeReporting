@@ -1,0 +1,88 @@
+<md-card class="page-card">
+        <md-toolbar color="accent">
+            <md-card-title>New Job Quote</md-card-title><br>
+        </md-toolbar>
+        <md-card-content>
+            <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayout.md="column" fxLayout.lg="column">
+                
+                
+                <md-input-container>
+                    <input #qName="ngModel" md-input placeholder="Job name" type="text" [(ngModel)]="quoteName" name="quoteName" required>
+
+                </md-input-container>
+                
+                
+                <p class="text-danger" *ngIf="qName.touched && qName.invalid">You must include a job name.</p>
+                
+                
+                
+                <br>
+                <md-select [(ngModel)]="companyName" name="companyName" placeholder="Company Name">
+                    <md-option *ngFor="let company of companies" [value]="company.value">{{ company.viewValue }}</md-option>
+                </md-select>
+                <br>
+                <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayout.md="column" fxLayout.lg="column" fxFlex="50">
+                 <div class="card-form-input" fxflex>
+                <md-input-container>
+                    <input #amount="ngModel" md-input placeholder="Amount quoted" type="text" [(ngModel)]="amountQuoted" name="amountQuoted" digits>
+                </md-input-container>
+                <p class="text-danger" *ngIf="amount.errors?.digits">Enter a dollar amount in numbers only.</p>
+                 </div>
+                </div>
+                <br>
+            </div>
+        </md-card-content>
+    </md-card>
+    <md-card>
+        <md-toolbar color="accent">
+            <md-card-title>Job Specifications</md-card-title><br>
+        </md-toolbar>
+        <md-card-content>
+
+            <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayout.md="column" fxLayout.lg="column">
+                <div class="card-form-input" fxflex>
+                    <section class="card-form-section">
+                        <md-radio-group [(ngModel)]="jobType" name="jobType">
+                            <md-radio-button *ngFor="let job of jobTypes" [value]="job.value">
+                                {{job.viewValue}}
+                            </md-radio-button>
+                        </md-radio-group>
+                    </section>
+                </div>
+            </div>
+
+            <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayout.md="column" fxLayout.lg="column" fxFlex="50">
+                <div class="card-form-input" fxflex>
+                    <md2-datepicker type="date" placeholder="Job Date" format="YYYY/MM/DD" [(ngModel)]="jobDate" name="jobDate">
+                    </md2-datepicker>
+                </div>
+            </div>
+
+            <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayout.md="column" fxLayout.lg="column">
+                
+                <md-icon class="card-form-input-icon" fxflex>label_outline</md-icon>
+                <div class="card-form-input" fxLayout="column">
+                    <md-textarea placeholder="Job Details"></md-textarea>
+                    <input md-input type="text" [(ngModel)]="jobDetails" name="jobDetails" #details="ngModel">
+                    <p class="text-danger" *ngIf="details?.errors?.invalid">Please include job details</p>
+                </div>
+
+                <md-icon class="card-form-input-icon" fxflex>home</md-icon>
+                <div class="card-form-input" fxflex="70" fxLayout="column">
+                    <md-input-container>
+                        <input md-input placeholder="Deliver report address" type="text" [(ngModel)]="deliveryAddress" name="deliveryAddress" #addr="ngModel">
+                    </md-input-container>
+                    <p class="text-danger" *ngIf="addr?.errors?.invalid">Please enter address where report will be delivered</p>
+                </div>
+
+            </div>
+            <br>
+
+            <br>
+            <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayout.md="column" fxLayout.lg="column">
+                <div class="card-form-input" fxflex="30" fxLayout="column">
+                    <md-checkbox #accept>I certify that this information is correct</md-checkbox>
+                </div>
+            </div>
+        </md-card-content>
+    </md-card>

@@ -1,0 +1,34 @@
+<div class="page-content">
+    <md-card class="page-card">
+        <md-toolbar color="accent">
+            <md-card-title style="margin-bottom: 0">Quotes</md-card-title><br>
+        </md-toolbar>
+        <md-card-content>
+            <md-list >
+                <md-list-item *ngFor="let quote of quotes"
+                    [class.selected]="quote === selectedQuote"
+                    (click)="onSelect(quote)">
+                    <md-icon md-list-avatar>note</md-icon>
+                    <h4 md-line><a>{{quote.QuoteName}}</a></h4>
+                    <p md-line>{{quote.CompanyName}}</p>
+                    <p md-line>{{quote.JobDate}}</p>
+                </md-list-item>
+            </md-list>
+        </md-card-content>
+    </md-card>
+    <div *ngIf="selectedQuote">
+        <h2>{{selectedQuote.QuoteName | uppercase}} is my selected quote</h2>
+        <button (click)="gotoDetail()">View Details</button>    
+    </div>
+</div>
+
+   
+
+
+
+
+
+
+
+
+    
