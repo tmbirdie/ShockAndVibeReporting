@@ -1,14 +1,41 @@
-This is the new quote detail page
+<md-card class="page-card">
+    <md-toolbar color="accent">
+        <md-card-title style="margin-bottom: 0">Edit Job Quote</md-card-title><br>
+    </md-toolbar>
+    <md-card-content>
+        <div *ngIf="quote">
 
-<div *ngIf="quote" >
-    <h2> details!</h2>
-    <div><label>id: </label>{{quote._id}}</div>
-    <h3>{{quote.CompanyName}}</h3>
-    <div>
-      <label>{{quote.QuoteName}} </label>
-        <input [(ngModel)]="quote.QuoteName" placeholder="name"/>
-        <input [(ngModel)]="quote.CompanyName" placeholder="name"/>
-    </div>
-    <button (click)="save(quote)">Save</button>
-    <button (click)="goBack()">Back</button>
-</div>
+            <!--<div><label>id: </label>{{quote._id}}</div>-->
+            <h3>{{quote.CompanyName}}</h3>
+            <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayout.md="column" fxLayout.lg="column">
+                <label>{{quote.QuoteName}}</label><br>
+                <md-input-container>
+                    <input md-input [(ngModel)]="quote.AmountQuoted" placeholder="amount" />
+                </md-input-container>
+                <md-input-container>
+                    <input md-input [(ngModel)]="quote.JobType" placeholder="type" />
+                </md-input-container>
+                <md2-datepicker type="date" placeholder="Job Date" format="YYYY/MM/DD" [(ngModel)]="quote.JobDate" name="jobDate">
+                </md2-datepicker>
+                <!--<md-input-container>
+                    <input md-input [(ngModel)]="quote.JobDate" name="jobDate" placeholder="date" />
+                </md-input-container>-->
+                <md-input-container>
+                    <input md-input [(ngModel)]="quote.JobDetails" placeholder="details" />
+                </md-input-container>
+                <md-input-container>
+                    <input md-input [(ngModel)]="quote.DeliveryAddress" placeholder="address" />
+                </md-input-container>
+                <!--<div class="card-form-input" fxflex="30" fxLayout="column">
+                    <md-checkbox #accept>I certify that this information is correct</md-checkbox>
+                </div>-->
+            </div>
+            <!--<button (click)="save(quote); false">Save</button>
+            <button (click)="goBack()">Back</button>-->
+        </div>
+    </md-card-content>
+    <md-card-actions>
+        <button color="accent" md-raised-button (click)="save(quote); false">SAVE</button>
+        <button md-raised-button (click)="goBack()">Back</button>
+    </md-card-actions>
+</md-card>

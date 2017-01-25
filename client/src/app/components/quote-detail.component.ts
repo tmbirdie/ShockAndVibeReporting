@@ -37,15 +37,17 @@ export class QuoteDetailComponent {
     var _quote = {
       _id: quote._id,
       QuoteName: quote.QuoteName,
-      CompanyName: quote.CompanyName
+      CompanyName: quote.CompanyName,
+      AmountQuoted: quote.AmountQuoted,
+      JobType: quote.JobType,
+      JobDate: quote.JobDate,
+      JobDetails: quote.JobDetails,
+      DeliveryAddress: quote.DeliveryAddress
     };
     this.quotesService.updateQuote(_quote).subscribe(data => {
         quote = _quote;
-        
     });
-    this.goBack();
   }
-
 
   goBack(): void {
     this.location.back();

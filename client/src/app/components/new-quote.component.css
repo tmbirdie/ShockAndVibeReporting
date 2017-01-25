@@ -1,0 +1,15 @@
+md-card-content{
+    padding: 20px;
+    border: solid 1px dimgray;
+}
+
+md-toolbar{
+    height: 70px;
+    border: solid 1px dimgray;
+
+}
+
+.selected {
+    background-color: #CFD8DC !important;
+    color: white;
+  }

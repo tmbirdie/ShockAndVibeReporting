@@ -10,9 +10,9 @@
                     (click)="onSelect(quote)">
                     <md-icon md-list-avatar>note</md-icon>
                     <h4 md-line><a>{{quote.QuoteName}}</a></h4>
-                    <p md-line>{{quote._id}}</p>
+                    <!--<p md-line>{{quote._id}}</p>-->
                     <p md-line>{{quote.CompanyName}}</p>
-                    <p md-line>{{quote.JobDate}}</p>
+                    <p md-line>{{quote.JobDate | date: 'yyyy/MM/dd'}}</p>
                 </md-list-item>
             </md-list>
         </md-card-content>

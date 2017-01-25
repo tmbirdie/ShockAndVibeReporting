@@ -31,6 +31,11 @@ router.put('/quotes/:id', function(req, res, next){
     if (quotes.QuoteName){
         updquote.CompanyName = quotes.CompanyName;
         updquote.QuoteName = quotes.QuoteName;
+        updquote.AmountQuoted = quotes.AmountQuoted;
+        updquote.JobType = quotes.JobType;
+        updquote.JobDate = quotes.JobDate;
+        updquote.JobDetails = quotes.JobDetails;
+        updquote.DeliveryAddress = quotes.DeliveryAddress;
     }
 
     
