@@ -1,1 +1,14 @@
 This is the new quote detail page
+
+<div *ngIf="quote" >
+    <h2> details!</h2>
+    <div><label>id: </label>{{quote._id}}</div>
+    <h3>{{quote.CompanyName}}</h3>
+    <div>
+      <label>{{quote.QuoteName}} </label>
+        <input [(ngModel)]="quote.QuoteName" placeholder="name"/>
+        <input [(ngModel)]="quote.CompanyName" placeholder="name"/>
+    </div>
+    <button (click)="save(quote)">Save</button>
+    <button (click)="goBack()">Back</button>
+</div>

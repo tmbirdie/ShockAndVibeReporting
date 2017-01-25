@@ -25,7 +25,7 @@ export const ROUTES: Routes = [
         component: NewQuoteComponent 
     },
     {
-        path: 'quotedetails',
+        path: 'detail/:id',
         component: QuoteDetailComponent
     }
 

@@ -4,19 +4,17 @@ import { Router } from '@angular/router';
 import { Company } from '../models/company.model';
 import { Quote } from '../models/quote.model';
 import { QuotesService } from '../services/quotes.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-// import { MdCard, MdToolbar, MdIconModule, MdButtonModule, MdListModule, MdInputModule, MdCheckboxModule } from '@angular/material';
 
 
 @Component({
+    //moduleId: module.id,
     selector: 'quote',
     templateUrl: './quote.component.html',
     styleUrls: ['./quote.component.css'],
     providers: [QuotesService]
 })
 
-export class QuoteComponent {
+export class QuoteComponent implements OnInit {
 
     title: string = "Work List";
     quotes: Quote[];
@@ -49,7 +47,7 @@ export class QuoteComponent {
   }
 
   gotoDetail(): void {
-    this.router.navigate(['/quotedetails', this.selectedQuote._id]);
+    this.router.navigate(['/detail', this.selectedQuote._id]);
   }
 
   deleteQuote(id){

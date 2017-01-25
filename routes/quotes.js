@@ -13,7 +13,7 @@ router.get('/quotes', function(req, res, next){
     });
 });
 
-//Get Single company
+//Get Single quote
 router.get('/quotes/:id', function(req, res, next){
     db.quotes.findOne({_id: mongojs.ObjectId(req.params.id)}, function(err, quotes){
        if(err){
@@ -22,6 +22,33 @@ router.get('/quotes/:id', function(req, res, next){
        res.json(quotes);
     });
 }); // example to get one quote:  http://localhost:3000/api/quotes/5887d760f36d285556553f08
+
+//Update company
+router.put('/quotes/:id', function(req, res, next){
+    var quotes = req.body;
+    var updquote = {};
+
+    if (quotes.QuoteName){
+        updquote.CompanyName = quotes.CompanyName;
+        updquote.QuoteName = quotes.QuoteName;
+    }
+
+    
+
+    if (!updquote){
+        res.status(400);
+        res.json({
+            "error": "bad data"
+         }); 
+    } else {
+        db.quotes.update({_id: mongojs.ObjectId(req.params.id)}, updquote, {}, function(err, quotes){
+       if(err){
+           res.send(err);
+       } 
+       res.json(quotes);
+    });
+    }  
+});
 
 //Save quote
 router.post('/quotes', function(req, res, next){

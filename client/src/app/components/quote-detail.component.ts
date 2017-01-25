@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, Params }   from '@angular/router';
+import { Location }                 from '@angular/common';
+import 'rxjs/add/operator/switchMap';
+
 import { Company } from '../models/company.model';
 import { Quote } from '../models/quote.model';
 import { QuotesService } from '../services/quotes.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { MdCard, MdToolbar, MdIconModule, MdButtonModule, MdListModule, MdInputModule, MdCheckboxModule } from '@angular/material';
 
 
 @Component({
@@ -16,63 +18,37 @@ import { MdCard, MdToolbar, MdIconModule, MdButtonModule, MdListModule, MdInputM
 
 export class QuoteDetailComponent {
 
-    quotes: Quote[];
+    @Input()
+    quote: Quote;    
 
-    quoteName: string;
-    companyName: string;
-    amountQuoted: string;
-    jobType: string;
-    jobDate: string;
-    jobDetails: string;
-    deliveryAddress: string;
+    constructor(
+        private quotesService: QuotesService,
+        private route: ActivatedRoute,
+        private location: Location
+    ){}
 
-    jobTypes = [
-        {value: 'T1', viewValue: 'Type One'},
-        {value: 'T2', viewValue: 'Type Two'},
-        {value: 'T3', viewValue: 'Type Three'} 
-    ];
-
-    companies = [
-        {value: 'CO1', viewValue: 'Company One'},
-        {value: 'CO2', viewValue: 'Company Two'},
-        {value: 'CO3', viewValue: 'Company Three'}
-    ];
-
-    constructor(private quotesService: QuotesService){
-    this.quotesService.getQuotes()
-      .subscribe(quotes => {
-        this.quotes = quotes;
-      });
+  ngOnInit(): void {
+      this.route.params
+        .switchMap((params: Params) => this.quotesService.getQuote(params['id']))
+        .subscribe(quote => this.quote = quote);
   }
 
-  ngOnInit() {
+  save(quote) {
+    var _quote = {
+      _id: quote._id,
+      QuoteName: quote.QuoteName,
+      CompanyName: quote.CompanyName
+    };
+    this.quotesService.updateQuote(_quote).subscribe(data => {
+        quote = _quote;
+        
+    });
+    this.goBack();
   }
 
-  addQuote(event){
-  event.preventDefault();
-    var newQuote = { 
-        QuoteName: this.quoteName,
-        CompanyName: this.companyName,
-        AmountQuoted: this.amountQuoted,
-        JobType: this.jobType,
-        JobDate: this.jobDate,
-        JobDetails: this.jobDetails,
-        DeliveryAddress: this.deliveryAddress
-      
-    }
-    this.quotesService.addQuote(newQuote)
-    .subscribe(quote => {
-      this.quotes.push(quote);
-      this.quoteName = '';
-      this.companyName = '';
-      this.amountQuoted = '';
-      this.jobType = '';
-      this.jobDate = '';
-      this.jobDetails = '';
-      this.deliveryAddress = '';
-    })
-  }
 
-  
+  goBack(): void {
+    this.location.back();
+  }
 
 }
