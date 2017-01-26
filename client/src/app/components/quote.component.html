@@ -6,21 +6,26 @@
         <md-card-content>
             <md-list >
                 <md-list-item *ngFor="let quote of quotes"
-                    [class.selected]="quote === selectedQuote"
-                    (click)="onSelect(quote)">
+                    [class.selected]="quote === selectedQuote">
                     <md-icon md-list-avatar>note</md-icon>
-                    <h4 md-line><a>{{quote.QuoteName}}</a></h4>
-                    <!--<p md-line>{{quote._id}}</p>-->
+                    <div *ngIf="selectedQuote">
+                        <!--<h2>{{selectedQuote.QuoteName | uppercase}} is my selected quote</h2>-->
+                        <button style="width:150px" md-raised-button color="accent" (click)="gotoDetail()">View/Edit</button> 
+                        <button style="width:150px" md-raised-button color="primary" (click)="deleteQuote(quote._id)">Delete</button>  
+                    </div>
+                    
+                    <h4 md-line (click)="onSelect(quote)"><a>{{quote.QuoteName}}</a></h4>
                     <p md-line>{{quote.CompanyName}}</p>
                     <p md-line>{{quote.JobDate | date: 'yyyy/MM/dd'}}</p>
+                    
                 </md-list-item>
             </md-list>
         </md-card-content>
     </md-card>
-    <div *ngIf="selectedQuote">
+    <!--<div *ngIf="selectedQuote">
         <h2>{{selectedQuote.QuoteName | uppercase}} is my selected quote</h2>
-        <button (click)="gotoDetail()">View Details</button>    
-    </div>
+        <button md-raised-button color="accent" (click)="gotoDetail()">View/Edit Quote</button>   
+    </div>-->
 </div>
 
    

@@ -38,8 +38,6 @@ router.put('/quotes/:id', function(req, res, next){
         updquote.DeliveryAddress = quotes.DeliveryAddress;
     }
 
-    
-
     if (!updquote){
         res.status(400);
         res.json({
@@ -53,6 +51,16 @@ router.put('/quotes/:id', function(req, res, next){
        res.json(quotes);
     });
     }  
+});
+
+//Delete quote
+router.delete('/quotes/:id', function(req, res, next){
+    db.quotes.remove({_id: mongojs.ObjectId(req.params.id)}, function(err, quotes){
+       if(err){
+           res.send(err);
+       } 
+       res.json(quotes);
+    });
 });
 
 //Save quote

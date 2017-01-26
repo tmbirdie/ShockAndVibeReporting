@@ -100,16 +100,6 @@ export class CompanyComponent {
   }
 
 
-updateCompany(company){
-    var _company = {
-      _id: company._id,
-      CompanyName: company.CompanyName,
-      CompanyEmail: 'company@CompanyEmail.com'
-    };
 
-    this.companyService.updateCompany(_company).subscribe(data => {
-      company.CompanyEmail = 'company@CompanyEmail.com';
-   })
-  }
 
 }
